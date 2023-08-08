@@ -1,0 +1,31 @@
+h1 {
+    text-align: center;
+}
+
+.pokedexContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.pokemonCard {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 50px;
+}
+
+.pokemonCard > h3 {
+    margin: 0px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.pokemonCard > p {
+    margin: 0px;
+    font-size: 13px;
+}
+
