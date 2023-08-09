@@ -1,5 +1,5 @@
 
-const pokemons_number = 9;
+const pokemons_number = 151;
 
 const colors = {
 	fire: '#fc7030',
@@ -35,7 +35,7 @@ const getPokemon = async id => {
 	const url = `https://pokeapi.co/api/v2/pokemon/${id}`
 	const res = await fetch(url)
 	const pokemon = await res.json()
-    createPokemonCard(pokemon)
+	createPokemonCard(pokemon)
 }
 
 const createPokemonCard = (pokemon) => {
@@ -49,28 +49,28 @@ const createPokemonCard = (pokemon) => {
 
 	const pokemonTypes = []
 
-    for (let i = 0 ; i < pokemon.types.length ; i++) {
-        pokemonTypes.push(pokemon.types[i].type.name)
-    }
+	for (let i = 0; i < pokemon.types.length; i++) {
+		pokemonTypes.push(pokemon.types[i].type.name)
+	}
 
-    let type1 = `<div class="type">${pokemonTypes[0]}</div>`
-    let type2 = ''
-    if (pokemonTypes[1] !== undefined) {
-        type2 = `<div class="type">${pokemonTypes[1]}</div>`
-    }
+	let type1 = `<div class="type">${pokemonTypes[0]}</div>`
+	let type2 = ''
+	if (pokemonTypes[1] !== undefined) {
+		type2 = `<div class="type">${pokemonTypes[1]}</div>`
+	}
 
 	const type = main_types.find(type => pokemonTypes[0].indexOf(type) > -1);
 	const name = pokemon.name[0].toUpperCase() + pokemon.name.slice(1);
 	const color = colors[type];
-	
+
 	pokemonEl.style.backgroundColor = `${color}70`;
 
 	const pokeInnerHTML = `
 		<a href="pokedex.html?id=${pokemon.id}">
 			<div class="info">
 				<span class="number">#${pokemon.id
-								.toString()
-								.padStart(3, '0')}</span>
+			.toString()
+			.padStart(3, '0')}</span>
 				<h3 class="name" style="color:${color}">${name}</h3>
 				<div id="allTypes">${type1} ${type2}</div>
 			</div>
@@ -106,9 +106,9 @@ const createPokeFiche = (pokemon) => {
 
 	const pokemonTypes = []
 
-    for (let i = 0 ; i < pokemon.types.length ; i++) {
-        pokemonTypes.push(pokemon.types[i].type.name)
-    }
+	for (let i = 0; i < pokemon.types.length; i++) {
+		pokemonTypes.push(pokemon.types[i].type.name)
+	}
 
 	const type1Index = main_types.find(type => pokemonTypes[0].indexOf(type) > -1);
 	const color1 = colors[type1Index];
@@ -120,11 +120,11 @@ const createPokeFiche = (pokemon) => {
 	}
 
 	let type1 = `<div style="background-color:${color1}">${pokemonTypes[0]}</p></div>`
-    let type2 = ''
-    if (pokemonTypes[1] !== undefined) {
-        type2 = `<div style="background-color:${color2}">${pokemonTypes[1]}</div>`
-    }
-	
+	let type2 = ''
+	if (pokemonTypes[1] !== undefined) {
+		type2 = `<div style="background-color:${color2}">${pokemonTypes[1]}</div>`
+	}
+
 	document.body.style.backgroundColor = `${color1}70`;
 
 	const ficheInnerHTML = `
@@ -141,7 +141,7 @@ async function fetchSpecies(selectedPoke) {
 	const data = await response.json();
 	const species = data.genera[7].genus;
 	return species;
-  }
+}
 
 
 const createBottomSheet = (pokemon) => {
@@ -149,22 +149,22 @@ const createBottomSheet = (pokemon) => {
 
 	//info
 	bottomSheet.classList.add('info-bottom');
-	let pokeWeight 
-		if (pokemon.weight.toString().length == 1) {
-			pokeWeight = `0.${pokemon.weight} kg`
-		}
-		else {
-			pokeWeight = pokemon.weight.toString().slice(0, pokemon.weight.toString().length-1) + '.' + pokemon.weight.toString().slice(-1) + ' kg'
-		}
+	let pokeWeight
+	if (pokemon.weight.toString().length == 1) {
+		pokeWeight = `0.${pokemon.weight} kg`
+	}
+	else {
+		pokeWeight = pokemon.weight.toString().slice(0, pokemon.weight.toString().length - 1) + '.' + pokemon.weight.toString().slice(-1) + ' kg'
+	}
 
-	let pokeHeight 
-		if (pokemon.height.toString().length == 1) {
-			pokeHeight = `0.${pokemon.height} m`
-		}
-		else {
-			pokeHeight = pokemon.height.toString().slice(0, pokemon.height.toString().length-1) + '.' + pokemon.height.toString().slice(-1) + ' m'
-		}
-	
+	let pokeHeight
+	if (pokemon.height.toString().length == 1) {
+		pokeHeight = `0.${pokemon.height} m`
+	}
+	else {
+		pokeHeight = pokemon.height.toString().slice(0, pokemon.height.toString().length - 1) + '.' + pokemon.height.toString().slice(-1) + ' m'
+	}
+
 	const abilities = pokemon.abilities.map((ability) => ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1))
 
 	fetchSpecies(pokemon.id)
@@ -189,16 +189,19 @@ const createBottomSheet = (pokemon) => {
 			<td class="table-data">${abilities.join(`<br>`)}</td>
 		</tr>
 	</table>
+
+	<div id="title"><h1>evolutions</h1> <i class="fa-solid fa-arrow-trend-up"></i></div>
+
 	
 	`
 
-	bottomSheet.innerHTML = infoInnerHTML
-	document.querySelector('.fiche-container').appendChild(bottomSheet);
+			bottomSheet.innerHTML = infoInnerHTML
+			document.querySelector('.fiche-container').appendChild(bottomSheet);
 
 		}
-			
+
 		)
-	}
+}
 
 
 
@@ -212,20 +215,20 @@ else {
 // search
 const onSearch = () => {
 	const search = document.querySelector('.search')
-	search.innerHTML = `<input type="text" id="search" placeholder="type to search">`
+	search.innerHTML = `<div class="input-container">
+	<input type="text" id="input" required="">
+	<label for="input" class="label">search</label>
+	<div class="underline"></div>
+  </div>
+  `
 
-	const input = document.querySelector('#search')
-	const filter = input.value
-	const list = document.querySelectorAll('h3.name')
+	const input = document.querySelector('#input')
+	const allElements = document.querySelectorAll('.pokemon')
 
-	list.forEach((el) => {
-	input.addEventListener("input", function() {
-			el.style.display = el.textContent.toUpperCase().includes(input.value.toUpperCase()) ? "" : "none"
-			console.log(input.value)
-			console.log(el.textContent.includes(input.value))
+	allElements.forEach((div) => {
+		input.addEventListener("input", function () {
+			div.style.display = div.innerText.split('\n')[1].toUpperCase().includes(input.value.toUpperCase()) ? "" : "none"
 		})
 	})
-
-
 
 }
