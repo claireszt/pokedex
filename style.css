@@ -6,7 +6,17 @@ body {
     display: flex;
     text-transform: uppercase;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.top-menu div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.top-menu div i {
+    margin-right: 10px;
 }
 
 #poke_container {
@@ -61,7 +71,7 @@ body {
     margin-right: 10px;
     padding: 5px 10px 5px 10px;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.242);
+    background-color: rgba(0, 0, 0, 0.412);
     font-size: small;
     color: white;
 }
@@ -138,4 +148,11 @@ table, td {
 
 .info-bottom table .table-data {
     text-align: left;
+}
+
+#search {
+    margin-bottom: 20px;
+    width: 90%;
+    padding:10px;
+    border-radius: 10px;
 }

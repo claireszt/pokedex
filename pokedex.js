@@ -1,5 +1,5 @@
 
-const pokemons_number = 151;
+const pokemons_number = 9;
 
 const colors = {
 	fire: '#fc7030',
@@ -23,6 +23,7 @@ const colors = {
 };
 
 const main_types = Object.keys(colors);
+let menu
 
 const fetchPokemons = async () => {
 	for (let i = 1; i <= pokemons_number; i++) {
@@ -38,6 +39,11 @@ const getPokemon = async id => {
 }
 
 const createPokemonCard = (pokemon) => {
+	menu = document.querySelector('.top-menu')
+	menu.innerHTML = `<i class="fa-solid fa-bars"></i>
+	<h1>pokedex</h1>
+	<div onclick="onSearch()"><i class="fa-solid fa-magnifying-glass"></i></div>`
+
 	const pokemonEl = document.createElement('div');
 	pokemonEl.classList.add('pokemon');
 
@@ -91,6 +97,11 @@ const fetchPokeData = async (id) => {
 };
 
 const createPokeFiche = (pokemon) => {
+	menu = document.querySelector('.top-menu')
+	menu.innerHTML = `<a href="pokedex.html"><i class="fa-solid fa-arrow-left"></i></a>
+	<div><i class="fa-regular fa-heart"></i>
+	<h3>#${pokemon.id.toString().padStart(3, '0')}</h3></div>`
+
 	const ficheContainer = document.querySelector('.fiche-container')
 
 	const pokemonTypes = []
@@ -196,4 +207,25 @@ if (selectedPoke) {
 }
 else {
 	fetchPokemons()
+}
+
+// search
+const onSearch = () => {
+	const search = document.querySelector('.search')
+	search.innerHTML = `<input type="text" id="search" placeholder="type to search">`
+
+	const input = document.querySelector('#search')
+	const filter = input.value
+	const list = document.querySelectorAll('h3.name')
+
+	list.forEach((el) => {
+	input.addEventListener("input", function() {
+			el.style.display = el.textContent.toUpperCase().includes(input.value.toUpperCase()) ? "" : "none"
+			console.log(input.value)
+			console.log(el.textContent.includes(input.value))
+		})
+	})
+
+
+
 }
