@@ -108,12 +108,11 @@ async function fetchSpecies(selectedPoke) {
 const createPokeFiche = (pokemon) => {
 	menu = document.querySelector('.top-menu')
 	menu.innerHTML = `
-	<a href="pokedex.html"><div><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i>
-	<h2 style="text-transform:capitalize; color:#ffffff">${pokemon.name}</h2></div></a>
+	<div><a href="pokedex.html"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i><h2 style="text-transform:capitalize; color:#ffffff">${pokemon.name}</h2></a></div>
 	<div><i class="fa-regular fa-heart" style="color: #ffffff;"></i>
 	<h3 style="color: #ffffff;">#${pokemon.id.toString().padStart(3, '0')}</h3></div>`
 
-	const ficheContainer = document.querySelector('.fiche-container')
+	const ficheContainer = document.querySelector('.poke-fiche')
 
 	const pokemonTypes = []
 
@@ -161,38 +160,9 @@ const createPokeFiche = (pokemon) => {
 
 	const abilities = pokemon.abilities.map((ability) => ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1))
 
-	const pokestats = 
-		{
-		"hp": {
-			"base": pokemon.stats[0].base_stat,
-			"max":pokemon.stats[0].base_stat*2+204
-		},
-		"att": {
-			"base": pokemon.stats[1].base_stat,
-			"max":pokemon.stats[1].base_stat*2+99
-		},
-		"def": {
-			"base": pokemon.stats[2].base_stat,
-			"max":pokemon.stats[2].base_stat*2+99
-		},
-		"spatt": {
-			"base": pokemon.stats[3].base_stat,
-			"max":pokemon.stats[3].base_stat*2+99
-		},
-		"spdef": {
-			"base": pokemon.stats[4].base_stat,
-			"max":pokemon.stats[4].base_stat*2+99
-		},
-		"speed": {
-			"base": pokemon.stats[5].base_stat,
-			"max":pokemon.stats[5].base_stat*2+99
-		}
-	}
-
 	fetchSpecies(pokemon.id)
 		.then((species) => {
-	const ficheInnerHTML = `
-		<div class="poke-fiche">
+	const aboutInnerHTML = `
 			<div class="fiche-nav">
 				<a href="pokedex.html?id=${pokemon.id-1}"><i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i></a>
 				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png" alt="${name}" />
@@ -217,17 +187,51 @@ const createPokeFiche = (pokemon) => {
 				</div>
 			</div>
 			<p>${species}</p>
-			<h3 style="color:${color1}">Base Stats</h3>
-			<div class="stats-poke"><p>HP ${pokestats.hp.base}</p><progress id="hp" value="${pokestats.hp.base}" max="${pokestats.hp.max}"></progress></div>
-			<div class="stats-poke"><p>ATT ${pokestats.att.base}</p><progress id="att" value="${pokestats.att.base}" max="${pokestats.att.max}"></progress></div>
-			<div class="stats-poke"><p>DEF ${pokestats.def.base}</p><progress id="def" value="${pokestats.def.base}" max="${pokestats.def.max}"></progress></div>
-			<div class="stats-poke"><p>SPE ATT ${pokestats.spatt.base}</p><progress id="sp-att" value="${pokestats.spatt.base}" max="${pokestats.spatt.max}"></progress></div>
-			<div class="stats-poke"><p>SPE DEF ${pokestats.spdef.base}</p><progress id="sp-def" value="${pokestats.spdef.base}" max="${pokestats.spdef.max}"></progress></div>
-			<div class="stats-poke"><p>SPEED ${pokestats.speed.base}</p><progress id="speed" value="${pokestats.speed.base}" max="${pokestats.speed.max}"></progress></div>
-			</div>
+	`
+	const pokestats = [
+		{"name":"hp",
+			"stats": {
+			"base": pokemon.stats[0].base_stat,
+			"max":pokemon.stats[0].base_stat*2+204
+		}},
+		{"name":"atk",
+			"stats": {
+			"base": pokemon.stats[1].base_stat,
+			"max":pokemon.stats[1].base_stat*2+99
+		}},
+		{"name":"def",
+			"stats": {
+			"base": pokemon.stats[2].base_stat,
+			"max":pokemon.stats[2].base_stat*2+99
+		}},
+		{"name":"s atk",
+			"stats": {
+			"base": pokemon.stats[3].base_stat,
+			"max":pokemon.stats[3].base_stat*2+99
+		}},
+		{"name":"s def",
+			"stats": {
+			"base": pokemon.stats[4].base_stat,
+			"max":pokemon.stats[4].base_stat*2+99
+		}},
+		{"name":"spd",
+			"stats": {
+			"base": pokemon.stats[5].base_stat,
+			"max":pokemon.stats[5].base_stat*2+99
+		}}
+	]
+
+	let statsInnerHTML = `
+	<h3 style="color:${color1}">Base Stats</h3>	
 	`
 
-	ficheContainer.innerHTML = ficheInnerHTML
+	for (let stats of pokestats) {
+		statsInnerHTML += `
+		<div class="stats-div"><div style="color:${color1}">${stats.name}</div><div> ${stats.stats.base.toString().padStart(3, '0')}</div><div class="progress-container"><div class="progress-value" style="background-color:${color1};width:${stats.stats.base*100/stats.stats.max}%"></div></div></div>
+		`
+	}
+
+	ficheContainer.innerHTML = aboutInnerHTML + statsInnerHTML
 		})
 }
 
