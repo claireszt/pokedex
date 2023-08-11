@@ -1,4 +1,3 @@
-
 const pokemons_number = 151;
 
 const colors = {
@@ -78,7 +77,7 @@ const createPokemonCard = (pokemon) => {
 				<div id="allTypes">${type1} ${type2}</div>
 			</div>
 			<div class="img-container">
-				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png" alt="${name}" />
+				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png" alt="${name}" />
 				<div class="favorite"><i class="fa-regular fa-heart" style="color: #ffffff;"></i></div>
 			</div>
 		</a>
@@ -165,7 +164,7 @@ const createPokeFiche = (pokemon) => {
 	const aboutInnerHTML = `
 			<div class="fiche-nav">
 				<a href="pokedex.html?id=${pokemon.id-1}"><i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i></a>
-				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.id}.png" alt="${name}" />
+				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png" alt="${name}" />
 				<a href="pokedex.html?id=${pokemon.id+1}"><i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i></a>
 			</div>
 			<div class="types-fiche">
