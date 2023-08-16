@@ -68,7 +68,7 @@ const createPokemonCard = (pokemon) => {
 	pokemonEl.style.backgroundColor = `${color}80`;
 
 	const pokeInnerHTML = `
-		<a href="pokedex.html?id=${pokemon.id}">
+		<a href="index.html?id=${pokemon.id}">
 			<div class="info">
 				<span class="number">#${pokemon.id
 			.toString()
@@ -107,7 +107,7 @@ async function fetchSpecies(selectedPoke) {
 const createPokeFiche = (pokemon) => {
 	menu = document.querySelector('.top-menu')
 	menu.innerHTML = `
-	<div><a href="pokedex.html"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i><h2 style="text-transform:capitalize; color:#ffffff">${pokemon.name}</h2></a></div>
+	<div><a href="index.html"><i class="fa-solid fa-arrow-left" style="color: #ffffff;"></i><h2 style="text-transform:capitalize; color:#ffffff">${pokemon.name}</h2></a></div>
 	<div><i class="fa-regular fa-heart" style="color: #ffffff;"></i>
 	<h3 style="color: #ffffff;">#${pokemon.id.toString().padStart(3, '0')}</h3></div>`
 
@@ -163,9 +163,9 @@ const createPokeFiche = (pokemon) => {
 		.then((species) => {
 	const aboutInnerHTML = `
 			<div class="fiche-nav">
-				<a href="pokedex.html?id=${pokemon.id-1}"><i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i></a>
+				<a href="index.html?id=${pokemon.id-1}"><i class="fa-solid fa-chevron-left" style="color: #ffffff;"></i></a>
 				<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png" alt="${name}" />
-				<a href="pokedex.html?id=${pokemon.id+1}"><i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i></a>
+				<a href="index.html?id=${pokemon.id+1}"><i class="fa-solid fa-chevron-right" style="color: #ffffff;"></i></a>
 			</div>
 			<div class="types-fiche">
 				${type1} ${type2}
